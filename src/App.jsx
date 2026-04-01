@@ -48,8 +48,12 @@ export default function WeddingSite() {
           </div>
 
           <div className="relative z-10 mt-6">
-            <p className="text-[3.25rem] leading-[0.92] tracking-tight text-[#423633]" style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic' }}>
-              Carmine <span className="mx-1 text-[#8f817a]">&</span><br />
+            <p
+              className="text-[3.25rem] leading-[0.92] tracking-tight text-[#423633]"
+              style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic' }}
+            >
+              Carmine <span className="mx-1 text-[#8f817a]">&</span>
+              <br />
               Annamaria
             </p>
             <p className="mt-5 text-[0.92rem] tracking-[0.04em] text-[#6f625c]">
@@ -59,9 +63,31 @@ export default function WeddingSite() {
         </section>
 
         <section className="relative px-7 pb-10 text-center">
-          <div className="absolute right-4 top-6 h-24 w-24 rounded-full border border-[#d9cdc6] opacity-70" />
-          <div className="absolute right-8 top-10 h-16 w-16 rounded-full bg-[#6d7c66] opacity-85 shadow-inner" />
-          <div className="absolute right-6 top-0 text-[70px] leading-none text-[#d9cdc6]">﹏</div>
+          <div className="absolute right-0 top-6 h-24 w-24 rounded-full border border-[#d9cdc6] opacity-70" />
+
+          <div className="absolute right-2 top-8 flex items-center justify-center">
+            <div className="relative flex h-20 w-20 items-center justify-center rounded-full bg-[#6d7c66] shadow-[inset_0_6px_10px_rgba(0,0,0,0.22),0_6px_12px_rgba(0,0,0,0.08)]">
+              <div className="absolute inset-[6px] rounded-full border border-[#7f8d78] opacity-70" />
+              <div className="absolute inset-[12px] rounded-full border border-[#5f6d59] opacity-45" />
+              <div className="absolute inset-0 rounded-full opacity-20 bg-[radial-gradient(circle_at_30%_28%,rgba(255,255,255,0.28),transparent_55%)]" />
+              <span
+                className="relative text-[1.65rem] tracking-[0.12em] text-[#ece3db]"
+                style={{ fontFamily: 'Cormorant Garamond, serif', fontWeight: 600 }}
+              >
+                <span
+                  style={{
+                    fontFamily: 'Great Vibes, cursive',
+                    fontSize: '32px',
+                    color: '#ece3db'
+                  }}
+                >
+                  C A
+                </span>
+              </span>
+            </div>
+          </div>
+
+          <div className="absolute right-2 top-5 text-[70px] leading-none text-[#d9cdc6]">﹏</div>
 
           <div className="mb-7 flex items-end justify-center gap-4 text-[#403632]">
             <div className="text-left">
@@ -78,17 +104,27 @@ export default function WeddingSite() {
           <p className="mt-6 text-sm italic text-[#7b6d66]">presso</p>
 
           <div className="mt-4 space-y-5 text-left">
-            <a href="https://maps.app.goo.gl/H3sEpER35S64XD9y6" target="_blank" rel="noreferrer" className="flex items-center gap-4 rounded-2xl border border-[#e2d6cf] bg-white/75 p-3 shadow-[0_8px_24px_rgba(80,60,50,0.05)] transition hover:-translate-y-0.5">
+            <a
+              href="https://maps.app.goo.gl/H3sEpER35S64XD9y6"
+              target="_blank"
+              rel="noreferrer"
+              className="flex items-center gap-4 rounded-2xl border border-[#e2d6cf] bg-white/75 p-3 shadow-[0_8px_24px_rgba(80,60,50,0.05)] transition hover:-translate-y-0.5"
+            >
               <img src="/chiesa.jpg" alt="Chiesa" className="h-16 w-16 shrink-0 rounded-xl object-cover shadow-sm" />
               <div>
                 <p className="text-[0.8rem] uppercase tracking-[0.18em] text-[#8f817a]">Cerimonia</p>
-                <p className="font-serif text-[1.2rem] leading-tight">Chiesa del Santissimo Corpo di Cristo</p>
+                <p className="font-serif text-[1.2rem] leading-tight">Chiesa Corpo di Cristo</p>
                 <p className="mt-1 text-xs italic text-[#7f726a]">tocca per aprire la mappa</p>
               </div>
             </a>
 
-            <a href="https://maps.app.goo.gl/dJaZpEufGdopggfv5" target="_blank" rel="noreferrer" className="flex items-center gap-4 rounded-2xl border border-[#e2d6cf] bg-white/75 p-3 shadow-[0_8px_24px_rgba(80,60,50,0.05)] transition hover:-translate-y-0.5">
-              <img src="/locale.jpg" alt="Chiesa" className="h-16 w-16 shrink-0 rounded-xl object-cover shadow-sm" />
+            <a
+              href="https://maps.app.goo.gl/dJaZpEufGdopggfv5"
+              target="_blank"
+              rel="noreferrer"
+              className="flex items-center gap-4 rounded-2xl border border-[#e2d6cf] bg-white/75 p-3 shadow-[0_8px_24px_rgba(80,60,50,0.05)] transition hover:-translate-y-0.5"
+            >
+              <img src="/locale.jpg" alt="Tenuta San Domenico" className="h-16 w-16 shrink-0 rounded-xl object-cover shadow-sm" />
               <div>
                 <p className="text-[0.8rem] uppercase tracking-[0.18em] text-[#8f817a]">Ricevimento</p>
                 <p className="font-serif text-[1.2rem] leading-tight">Tenuta San Domenico</p>
