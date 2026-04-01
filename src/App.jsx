@@ -49,8 +49,8 @@ export default function WeddingSite() {
 
           <div className="relative z-10 mt-6">
             <p className="text-[3.25rem] leading-[0.92] tracking-tight text-[#423633]" style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic' }}>
-              FABRIZIO <span className="mx-1 text-[#8f817a]">&</span><br />
-              POLPETTA
+              Carmine <span className="mx-1 text-[#8f817a]">&</span><br />
+              Annamaria
             </p>
             <p className="mt-5 text-[0.92rem] tracking-[0.04em] text-[#6f625c]">
               vi invitano a celebrare il loro matrimonio
