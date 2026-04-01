@@ -78,8 +78,8 @@ export default function WeddingSite() {
           <p className="mt-6 text-sm italic text-[#7b6d66]">presso</p>
 
           <div className="mt-4 space-y-5 text-left">
-            <a href="https://maps.app.goo.gl/H3sEpER35S64XD9y6" target="_blank" rel="noreferrer" className="flex items-center gap-4 rounded-2xl border border-[#e2d6cf] bg-white/75 p-3 shadow-[0_8px_24px_rgba(80,60,50,0.05)] transition hover:-translate-y-0.5">
-              <div className="h-16 w-16 shrink-0 rounded-sm bg-[linear-gradient(135deg,#b7b9c3,#efdfd4_58%,#cdb6a1)]" />
+            <a href="https://share.google/0QXaiHoXCIP8NKami" target="_blank" rel="noreferrer" className="flex items-center gap-4 rounded-2xl border border-[#e2d6cf] bg-white/75 p-3 shadow-[0_8px_24px_rgba(80,60,50,0.05)] transition hover:-translate-y-0.5">
+              <img src="/chiesa.jpg" alt="Chiesa" className="h-16 w-16 shrink-0 rounded-xl object-cover shadow-sm" />
               <div>
                 <p className="text-[0.8rem] uppercase tracking-[0.18em] text-[#8f817a]">Cerimonia</p>
                 <p className="font-serif text-[1.2rem] leading-tight">Chiesa del Santissimo Corpo di Cristo</p>
@@ -88,7 +88,7 @@ export default function WeddingSite() {
             </a>
 
             <a href="https://maps.app.goo.gl/dJaZpEufGdopggfv5" target="_blank" rel="noreferrer" className="flex items-center gap-4 rounded-2xl border border-[#e2d6cf] bg-white/75 p-3 shadow-[0_8px_24px_rgba(80,60,50,0.05)] transition hover:-translate-y-0.5">
-              <div className="h-16 w-16 shrink-0 rounded-sm bg-[linear-gradient(135deg,#b28f68,#eadfd4_50%,#7b9a69)]" />
+              <img src="/locale.jpg" alt="Chiesa" className="h-16 w-16 shrink-0 rounded-xl object-cover shadow-sm" />
               <div>
                 <p className="text-[0.8rem] uppercase tracking-[0.18em] text-[#8f817a]">Ricevimento</p>
                 <p className="font-serif text-[1.2rem] leading-tight">Tenuta San Domenico</p>
