@@ -134,7 +134,7 @@ export default function WeddingSite() {
     { time: '18:00', title: 'Aperitivo' },
     { time: '20:00', title: 'Inizio ricevimento' },
     { time: '00:00', title: 'Taglio torta' },
-    { time: 'dopo le 00:30', title: 'After party' },
+    { time: 'dopo  00:30', title: 'After party' },
   ];
 
   return (
@@ -212,28 +212,6 @@ export default function WeddingSite() {
         </section>
 
         <section className="relative px-7 pb-10 text-center">
-          <div className="absolute right-0 top-6 h-24 w-24 rounded-full border border-[#d9cdc6] opacity-70" />
-
-          <div className="absolute right-2 top-8 flex items-center justify-center">
-            <div className="relative flex h-20 w-20 items-center justify-center rounded-full bg-[#6d7c66] shadow-[inset_0_6px_10px_rgba(0,0,0,0.22),0_6px_12px_rgba(0,0,0,0.08)]">
-              <div className="absolute inset-[6px] rounded-full border border-[#7f8d78] opacity-70" />
-              <div className="absolute inset-[12px] rounded-full border border-[#5f6d59] opacity-45" />
-              <div className="absolute inset-0 rounded-full opacity-20 bg-[radial-gradient(circle_at_30%_28%,rgba(255,255,255,0.28),transparent_55%)]" />
-              <span
-                className="relative text-[#ece3db]"
-                style={{
-                  fontFamily: "'Allura', cursive",
-                  fontSize: '42px',
-                  lineHeight: 1,
-                }}
-              >
-                CA
-              </span>
-            </div>
-          </div>
-
-          <div className="absolute right-2 top-5 text-[70px] leading-none text-[#d9cdc6]">﹏</div>
-
           <div
             className="mb-7 flex items-end justify-center gap-4 text-[#8a9b85]"
             style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 300 }}
