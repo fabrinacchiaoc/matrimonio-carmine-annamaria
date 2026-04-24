@@ -1,19 +1,10 @@
 import { useState } from 'react';
 
-function EnvelopeIntro({ onOpen }) {
-  const [opening, setOpening] = useState(false);
-
-  const handleOpen = () => {
-    if (opening) return;
-    setOpening(true);
-    // quando la busta finisce di scomparire, avvisa il parent
-    window.setTimeout(() => onOpen?.(), 2000);
-  };
-
+function EnvelopeIntro({ opening, onTap }) {
   return (
     <div
-      className={`fixed inset-0 z-50 flex items-center justify-center bg-white ${
-        opening ? 'envelope-overlay-hide' : ''
+      className={`pointer-events-auto fixed inset-0 z-50 flex items-center justify-center bg-white ${
+        opening ? 'envelope-overlay-hide pointer-events-none' : ''
       }`}
     >
       {/* Busta */}
@@ -26,40 +17,6 @@ function EnvelopeIntro({ onOpen }) {
               '0 18px 40px rgba(80,60,50,0.12), 0 2px 6px rgba(80,60,50,0.06)',
           }}
         />
-
-        {/* Lettera che esce dall'interno al tap */}
-        <div
-          className={`absolute left-1/2 top-1/2 -translate-x-1/2 ${
-            opening ? 'envelope-letter-out' : ''
-          }`}
-          style={{
-            width: 220,
-            height: 150,
-            transform: 'translate(-50%, -50%) scale(0.72)',
-            opacity: 0,
-          }}
-        >
-          <div
-            className="flex h-full w-full flex-col items-center justify-center rounded-[4px] bg-white"
-            style={{
-              boxShadow: '0 12px 32px rgba(80,60,50,0.15)',
-              fontFamily: "'Cormorant Garamond', serif",
-            }}
-          >
-            <img
-              src="/monogramma.png"
-              alt="Monogramma CA"
-              className="h-auto w-[110px] select-none"
-              draggable={false}
-            />
-            <p
-              className="mt-1 text-[0.62rem] uppercase tracking-[0.3em] text-[#8a9b85]"
-              style={{ fontWeight: 300 }}
-            >
-              Save the date
-            </p>
-          </div>
-        </div>
 
         {/* Triangoli laterali e inferiore (pieghe della busta) */}
         <svg
@@ -114,9 +71,10 @@ function EnvelopeIntro({ onOpen }) {
         {/* Ceralacca (wax seal) con "CA" in script */}
         <button
           type="button"
-          onClick={handleOpen}
+          onClick={onTap}
           aria-label="Apri l'invito"
-          className={`absolute left-1/2 top-1/2 flex h-[72px] w-[72px] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full focus:outline-none ${
+          disabled={opening}
+          className={`absolute left-1/2 top-1/2 flex h-[72px] w-[72px] items-center justify-center rounded-full focus:outline-none ${
             opening ? 'envelope-seal-break' : 'envelope-seal-idle'
           }`}
           style={{
@@ -156,7 +114,18 @@ function EnvelopeIntro({ onOpen }) {
 }
 
 export default function WeddingSite() {
-  const [opened, setOpened] = useState(false);
+  // 'closed' → busta intatta, sito invisibile
+  // 'opening' → ceralacca spezzata, flap aperto, sito cresce da scala 0 a 1
+  // 'open' → overlay busta rimosso, sito interattivo
+  const [state, setState] = useState('closed');
+  const [giftOpen, setGiftOpen] = useState(false);
+
+  const handleTap = () => {
+    if (state !== 'closed') return;
+    setState('opening');
+    // l'overlay resta visibile mentre il sito cresce, poi viene rimosso
+    window.setTimeout(() => setState('open'), 1400);
+  };
 
   const timeline = [
     { time: '15:30', title: 'Cerimonia' },
@@ -170,9 +139,13 @@ export default function WeddingSite() {
 
   return (
     <>
-      {!opened && <EnvelopeIntro onOpen={() => setOpened(true)} />}
+      {state !== 'open' && (
+        <EnvelopeIntro opening={state === 'opening'} onTap={handleTap} />
+      )}
     <div
-      className={`min-h-screen bg-white text-[#4d413c] ${opened ? 'site-reveal' : ''}`}
+      className={`min-h-screen bg-white text-[#4d413c] site-emerge ${
+        state !== 'closed' ? 'site-emerge--grown' : ''
+      }`}
       style={{ fontFamily: "'Cormorant Garamond', serif" }}
     >
       <div className="mx-auto min-h-screen max-w-[430px] bg-white shadow-[0_12px_50px_rgba(80,60,50,0.08)]">
@@ -332,13 +305,13 @@ export default function WeddingSite() {
           </h2>
 
           <div className="relative mx-auto max-w-[280px]">
-            <div className="absolute left-[28px] top-0 h-full w-px bg-[#bfb0a8]" />
+            <div className="absolute left-[28px] top-0 h-full w-px bg-[#8a9b85]" />
 
             <div className="space-y-7">
               {timeline.map((item, index) => (
                 <div key={index} className="relative flex items-center gap-5">
-                  <div className="relative z-10 flex h-[56px] w-[56px] shrink-0 items-center justify-center rounded-full border border-[#cbbdb5] bg-white">
-                    <span className="h-2.5 w-2.5 rounded-full bg-[#a9968d]" />
+                  <div className="relative z-10 flex h-[56px] w-[56px] shrink-0 items-center justify-center rounded-full border border-[#8a9b85] bg-white">
+                    <span className="h-2.5 w-2.5 rounded-full bg-[#8a9b85]" />
                   </div>
                   <div style={{ fontFamily: "'Cormorant Garamond', serif" }}>
                     <p className="text-[0.72rem] uppercase tracking-[0.18em] text-[#8a9b85]">{item.time}</p>
@@ -361,36 +334,113 @@ export default function WeddingSite() {
             >
               Lista nozze
             </p>
-            <p className="mx-auto mt-3 max-w-[280px] text-[0.95rem] leading-6 text-[#6f625c]">
-              La vostra presenza sarà per noi il dono più bello. Qui potremo aggiungere più avanti il testo per il regalo,
-              l’eventuale IBAN oppure il link alla lista nozze.
+            <p className="mx-auto mt-4 max-w-[300px] text-[0.98rem] leading-7 text-[#6f625c]">
+              Insieme stiamo realizzando i nostri sogni più grandi e vi auguriamo
+              di avere sempre una stella a cui esprimere un desiderio. La vostra
+              presenza è il dono più prezioso. Se desiderate contribuire a
+              realizzare il nostro prossimo sogno, questo è il nostro IBAN:
             </p>
-            <div className="mt-4 rounded-xl bg-[#f6efea] px-4 py-3 text-xs leading-6 text-[#7d6e66]">
-              Testo provvisorio — da completare quando avrai le informazioni definitive.
+
+            {/* Pacco regalo cliccabile — al tap rivela gli IBAN */}
+            <div className="mt-5 flex flex-col items-center">
+              <button
+                type="button"
+                onClick={() => setGiftOpen((v) => !v)}
+                aria-expanded={giftOpen}
+                aria-label={giftOpen ? 'Nascondi coordinate bancarie' : 'Apri il regalo per scoprire le coordinate bancarie'}
+                className="group relative flex h-20 w-20 items-center justify-center rounded-full transition-transform hover:scale-105 focus:outline-none"
+              >
+                <svg viewBox="0 0 64 64" className="h-16 w-16">
+                  {/* Nastro verticale sotto (che scompare dietro il coperchio) */}
+                  <rect x="29" y="26" width="6" height="30" fill="#8a9b85" />
+                  {/* Corpo del pacco */}
+                  <rect
+                    x="8" y="26" width="48" height="30" rx="2"
+                    fill="#ffffff" stroke="#8a9b85" strokeWidth="1.5"
+                  />
+                  {/* Coperchio */}
+                  <g
+                    style={{
+                      transformOrigin: '32px 22px',
+                      transform: giftOpen ? 'translateY(-10px) rotate(-10deg)' : 'none',
+                      transition: 'transform 500ms cubic-bezier(0.22, 0.8, 0.28, 1)',
+                    }}
+                  >
+                    <rect
+                      x="4" y="18" width="56" height="10" rx="1.5"
+                      fill="#8a9b85"
+                    />
+                    {/* Nastro verticale sul coperchio */}
+                    <rect x="29" y="18" width="6" height="10" fill="#6d7c66" />
+                  </g>
+                  {/* Nastro verticale sul corpo */}
+                  <rect x="29" y="28" width="6" height="28" fill="#8a9b85" />
+                  {/* Fiocco in cima */}
+                  <g
+                    style={{
+                      transformOrigin: '32px 18px',
+                      transform: giftOpen ? 'translateY(-16px) rotate(8deg)' : 'none',
+                      transition: 'transform 500ms cubic-bezier(0.22, 0.8, 0.28, 1)',
+                    }}
+                  >
+                    <path
+                      d="M 32 18 C 22 8, 18 18, 30 18 Z"
+                      fill="#8a9b85"
+                    />
+                    <path
+                      d="M 32 18 C 42 8, 46 18, 34 18 Z"
+                      fill="#8a9b85"
+                    />
+                    <circle cx="32" cy="17" r="2.4" fill="#6d7c66" />
+                  </g>
+                </svg>
+              </button>
+              <p
+                className="mt-2 text-[0.7rem] uppercase tracking-[0.28em] text-[#8a9b85]"
+                style={{ fontWeight: 300 }}
+              >
+                {giftOpen ? 'chiudi' : 'apri il regalo'}
+              </p>
+            </div>
+
+            {/* Coordinate bancarie: nascoste finché il pacco non viene aperto */}
+            <div
+              style={{
+                maxHeight: giftOpen ? 320 : 0,
+                opacity: giftOpen ? 1 : 0,
+                overflow: 'hidden',
+                transition:
+                  'max-height 600ms cubic-bezier(0.22, 0.8, 0.28, 1), opacity 400ms ease-out',
+              }}
+            >
+              <div className="mt-5 space-y-3 text-left">
+                <div className="rounded-xl border border-[#e4dcd4] bg-white px-4 py-3">
+                  <p className="text-[0.7rem] uppercase tracking-[0.22em] text-[#8a9b85]">
+                    Carmine Nacchia
+                  </p>
+                  <p
+                    className="mt-1 break-all text-[0.92rem] text-[#4d413c]"
+                    style={{ fontWeight: 400, letterSpacing: '0.02em' }}
+                  >
+                    IT80O0306909484100000013575
+                  </p>
+                </div>
+                <div className="rounded-xl border border-[#e4dcd4] bg-white px-4 py-3">
+                  <p className="text-[0.7rem] uppercase tracking-[0.22em] text-[#8a9b85]">
+                    Annamaria Stefanelli
+                  </p>
+                  <p
+                    className="mt-1 break-all text-[0.92rem] text-[#4d413c]"
+                    style={{ fontWeight: 400, letterSpacing: '0.02em' }}
+                  >
+                    IT19B0200876312000430008265
+                  </p>
+                </div>
+              </div>
             </div>
           </div>
         </section>
 
-        <section
-          className="px-7 pb-14 text-center"
-          style={{ fontFamily: "'Cormorant Garamond', serif" }}
-        >
-          <p className="mx-auto max-w-[290px] text-[0.95rem] leading-6 text-[#6f625c]">
-            Vi chiediamo di confermare la vostra presenza appena possibile.
-          </p>
-          <button
-            className="mt-5 rounded-full bg-[#8a9b85] px-8 py-3 text-sm uppercase tracking-[0.22em] text-white shadow-[0_10px_24px_rgba(138,155,133,0.30)] transition hover:opacity-90"
-            style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 400 }}
-          >
-            Conferma presenza
-          </button>
-          <p
-            className="mt-8 text-xs uppercase tracking-[0.32em] text-[#a7b5a2]"
-            style={{ fontWeight: 300 }}
-          >
-            invito digitale
-          </p>
-        </section>
       </div>
     </div>
     </>

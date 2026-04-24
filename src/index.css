@@ -11,64 +11,57 @@ body {
 }
 
 /* ===========================================================
-   Envelope opening animation
+   Envelope opening animation — il sito EMERGE dalla busta
    =========================================================== */
 
 /* Pulsazione delicata della ceralacca per invitare al tap */
 @keyframes sealPulse {
-  0%, 100% { transform: scale(1); box-shadow: 0 8px 22px rgba(95,120,85,0.35), inset 0 6px 10px rgba(0,0,0,0.25); }
-  50%      { transform: scale(1.05); box-shadow: 0 12px 28px rgba(95,120,85,0.45), inset 0 6px 10px rgba(0,0,0,0.25); }
+  0%, 100% { transform: translate(-50%, -50%) scale(1);    box-shadow: 0 8px 22px rgba(95,120,85,0.35), inset 0 6px 10px rgba(0,0,0,0.25); }
+  50%      { transform: translate(-50%, -50%) scale(1.05); box-shadow: 0 12px 28px rgba(95,120,85,0.45), inset 0 6px 10px rgba(0,0,0,0.25); }
 }
 
-/* Rotazione del flap superiore */
+/* Rotazione del flap superiore: si apre subito al click */
 @keyframes flapOpen {
   0%   { transform: perspective(900px) rotateX(0deg); }
   100% { transform: perspective(900px) rotateX(-180deg); }
 }
 
-/* La "lettera" che esce dalla busta */
-@keyframes letterOut {
-  0%   { transform: translateY(0) scale(0.72); opacity: 0; }
-  25%  { opacity: 1; }
-  70%  { transform: translateY(-32%) scale(0.95); }
-  100% { transform: translateY(-48%) scale(1.02); opacity: 1; }
-}
-
-/* Fade-out finale dell'overlay busta */
+/* Fade-out dell'overlay busta mentre il sito cresce */
 @keyframes envelopeFadeOut {
   0%   { opacity: 1; }
+  40%  { opacity: 1; }
   100% { opacity: 0; visibility: hidden; }
 }
 
 /* La ceralacca che "si spezza": si restringe e cade leggermente */
 @keyframes sealBreak {
-  0%   { transform: scale(1) translateY(0) rotate(0); opacity: 1; }
-  40%  { transform: scale(1.08) translateY(-2px) rotate(-2deg); opacity: 1; }
-  100% { transform: scale(0.6) translateY(60px) rotate(-12deg); opacity: 0; }
+  0%   { transform: translate(-50%, -50%) scale(1)   rotate(0);   opacity: 1; }
+  40%  { transform: translate(-50%, -50%) scale(1.08) rotate(-2deg); opacity: 1; }
+  100% { transform: translate(-50%, -20%) scale(0.6) rotate(-12deg); opacity: 0; }
 }
 
 .envelope-seal-idle {
   animation: sealPulse 2.2s ease-in-out infinite;
 }
 .envelope-seal-break {
-  animation: sealBreak 700ms ease-in forwards;
+  animation: sealBreak 600ms ease-in forwards;
 }
 .envelope-flap-open {
   transform-origin: top center;
-  animation: flapOpen 900ms cubic-bezier(0.6, 0, 0.2, 1) 250ms forwards;
-}
-.envelope-letter-out {
-  animation: letterOut 1200ms cubic-bezier(0.22, 0.8, 0.28, 1) 450ms forwards;
+  animation: flapOpen 800ms cubic-bezier(0.6, 0, 0.2, 1) 150ms forwards;
 }
 .envelope-overlay-hide {
-  animation: envelopeFadeOut 500ms ease-out 1500ms forwards;
+  animation: envelopeFadeOut 1400ms ease-out forwards;
 }
 
-/* Sottile "respiro" del sito che appare */
-@keyframes siteReveal {
-  0%   { opacity: 0; transform: translateY(8px); }
-  100% { opacity: 1; transform: translateY(0); }
+/* Il sito che emerge: scala da 0 fino a dimensione reale, con origine
+   sulla ceralacca (centro viewport). La transizione è continua. */
+.site-emerge {
+  transform: scale(0);
+  transform-origin: 50% 42%;
+  transition: transform 1400ms cubic-bezier(0.22, 0.8, 0.28, 1);
+  will-change: transform;
 }
-.site-reveal {
-  animation: siteReveal 800ms ease-out 1400ms both;
+.site-emerge.site-emerge--grown {
+  transform: scale(1);
 }
