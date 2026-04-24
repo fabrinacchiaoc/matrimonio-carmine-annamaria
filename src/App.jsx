@@ -1,25 +1,194 @@
+import { useState } from 'react';
+
+function EnvelopeIntro({ onOpen }) {
+  const [opening, setOpening] = useState(false);
+
+  const handleOpen = () => {
+    if (opening) return;
+    setOpening(true);
+    // quando la busta finisce di scomparire, avvisa il parent
+    window.setTimeout(() => onOpen?.(), 2000);
+  };
+
+  return (
+    <div
+      className={`fixed inset-0 z-50 flex items-center justify-center bg-white ${
+        opening ? 'envelope-overlay-hide' : ''
+      }`}
+    >
+      {/* Busta */}
+      <div className="relative" style={{ width: 300, height: 210 }}>
+        {/* Corpo della busta (bianco con ombra morbida) */}
+        <div
+          className="absolute inset-0 rounded-[4px] bg-white"
+          style={{
+            boxShadow:
+              '0 18px 40px rgba(80,60,50,0.12), 0 2px 6px rgba(80,60,50,0.06)',
+          }}
+        />
+
+        {/* Lettera che esce dall'interno al tap */}
+        <div
+          className={`absolute left-1/2 top-1/2 -translate-x-1/2 ${
+            opening ? 'envelope-letter-out' : ''
+          }`}
+          style={{
+            width: 220,
+            height: 150,
+            transform: 'translate(-50%, -50%) scale(0.72)',
+            opacity: 0,
+          }}
+        >
+          <div
+            className="flex h-full w-full flex-col items-center justify-center rounded-[4px] bg-white"
+            style={{
+              boxShadow: '0 12px 32px rgba(80,60,50,0.15)',
+              fontFamily: "'Cormorant Garamond', serif",
+            }}
+          >
+            <img
+              src="/monogramma.png"
+              alt="Monogramma CA"
+              className="h-auto w-[110px] select-none"
+              draggable={false}
+            />
+            <p
+              className="mt-1 text-[0.62rem] uppercase tracking-[0.3em] text-[#8a9b85]"
+              style={{ fontWeight: 300 }}
+            >
+              Save the date
+            </p>
+          </div>
+        </div>
+
+        {/* Triangoli laterali e inferiore (pieghe della busta) */}
+        <svg
+          viewBox="0 0 300 210"
+          className="absolute inset-0 h-full w-full"
+          style={{ overflow: 'visible' }}
+        >
+          {/* triangolo di sinistra */}
+          <polygon
+            points="0,0 150,95 0,210"
+            fill="#ffffff"
+            stroke="#e4dcd4"
+            strokeWidth="0.8"
+          />
+          {/* triangolo di destra */}
+          <polygon
+            points="300,0 150,95 300,210"
+            fill="#ffffff"
+            stroke="#e4dcd4"
+            strokeWidth="0.8"
+          />
+          {/* triangolo inferiore */}
+          <polygon
+            points="0,210 150,95 300,210"
+            fill="#fcfaf7"
+            stroke="#e4dcd4"
+            strokeWidth="0.8"
+          />
+        </svg>
+
+        {/* Flap superiore: quando la busta si apre, ruota all'indietro */}
+        <div
+          className={`absolute left-0 right-0 top-0 ${
+            opening ? 'envelope-flap-open' : ''
+          }`}
+          style={{ height: '50%' }}
+        >
+          <svg
+            viewBox="0 0 300 105"
+            className="h-full w-full"
+            style={{ display: 'block' }}
+          >
+            <polygon
+              points="0,0 300,0 150,95"
+              fill="#ffffff"
+              stroke="#d9cfc6"
+              strokeWidth="1"
+            />
+          </svg>
+        </div>
+
+        {/* Ceralacca (wax seal) con "CA" in script */}
+        <button
+          type="button"
+          onClick={handleOpen}
+          aria-label="Apri l'invito"
+          className={`absolute left-1/2 top-1/2 flex h-[72px] w-[72px] -translate-x-1/2 -translate-y-1/2 items-center justify-center rounded-full focus:outline-none ${
+            opening ? 'envelope-seal-break' : 'envelope-seal-idle'
+          }`}
+          style={{
+            background:
+              'radial-gradient(circle at 32% 30%, #a6b89e 0%, #8a9b85 45%, #6d7c66 100%)',
+            boxShadow:
+              '0 8px 22px rgba(95,120,85,0.35), inset 0 6px 10px rgba(0,0,0,0.25), inset 0 -4px 8px rgba(255,255,255,0.12)',
+            border: '1px solid rgba(77,92,72,0.55)',
+          }}
+        >
+          <span
+            style={{
+              fontFamily: "'Allura', cursive",
+              fontSize: '2.3rem',
+              lineHeight: 1,
+              color: '#3f4c3a',
+              textShadow: '0 1px 0 rgba(255,255,255,0.18)',
+              letterSpacing: '-0.04em',
+            }}
+          >
+            CA
+          </span>
+        </button>
+      </div>
+
+      {/* Hint "tocca per aprire" */}
+      {!opening && (
+        <p
+          className="absolute bottom-20 text-center text-[0.72rem] uppercase tracking-[0.32em] text-[#8a9b85]"
+          style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 300 }}
+        >
+          tocca per aprire
+        </p>
+      )}
+    </div>
+  );
+}
+
 export default function WeddingSite() {
+  const [opened, setOpened] = useState(false);
+
   const timeline = [
-    { left: '17:30', leftTitle: 'Arrivo ospiti', right: '18:00', rightTitle: 'Cerimonia' },
-    { left: '18:45', leftTitle: 'Fine rito', right: '19:15', rightTitle: 'Trasferimento in location' },
-    { left: '19:45', leftTitle: 'Aperitivo', right: '20:30', rightTitle: 'Inizio ricevimento' },
-    { left: '23:00', leftTitle: 'Taglio torta', right: 'Fino a tardi', rightTitle: 'Musica e festeggiamenti' },
+    { time: '15:30', title: 'Cerimonia' },
+    { time: '17:00', title: 'Fine rito' },
+    { time: '17:30', title: 'Trasferimento in location' },
+    { time: '18:00', title: 'Aperitivo' },
+    { time: '20:00', title: 'Inizio ricevimento' },
+    { time: '00:00', title: 'Taglio torta' },
+    { time: 'dopo le 00:30', title: 'After party' },
   ];
 
   return (
-    <div className="min-h-screen bg-[#f4ece8] text-[#4d413c]">
-      <div className="mx-auto min-h-screen max-w-[430px] bg-[#f7f0ec] shadow-[0_12px_50px_rgba(80,60,50,0.08)]">
+    <>
+      {!opened && <EnvelopeIntro onOpen={() => setOpened(true)} />}
+    <div
+      className={`min-h-screen bg-white text-[#4d413c] ${opened ? 'site-reveal' : ''}`}
+      style={{ fontFamily: "'Cormorant Garamond', serif" }}
+    >
+      <div className="mx-auto min-h-screen max-w-[430px] bg-white shadow-[0_12px_50px_rgba(80,60,50,0.08)]">
         <section className="relative overflow-hidden px-7 pb-10 pt-8 text-center">
           <div className="absolute inset-0 opacity-50">
             <div className="absolute -left-12 top-16 h-44 w-44 rounded-full bg-[#ebe0da] blur-3xl" />
             <div className="absolute right-0 top-0 h-56 w-56 rounded-full bg-white blur-3xl" />
           </div>
 
-          <div
-            className="relative z-10 mx-auto inline-flex h-16 w-16 items-center justify-center border border-[#cdbfb7] text-[1.7rem] font-light tracking-wide text-[#6a5b54]"
-            style={{ clipPath: 'polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%)' }}
-          >
-            CA
+          <div className="relative z-10 mx-auto flex items-center justify-center">
+            <img
+              src="/monogramma.png"
+              alt="Monogramma CA"
+              className="h-auto w-[220px] select-none"
+              draggable={false}
+            />
           </div>
 
           <div className="relative z-10 mt-10">
@@ -49,15 +218,22 @@ export default function WeddingSite() {
 
           <div className="relative z-10 mt-6">
             <p
-              className="text-[3.25rem] leading-[0.92] tracking-tight text-[#423633]"
-              style={{ fontFamily: 'Cormorant Garamond, serif', fontStyle: 'italic' }}
+              className="text-[1.55rem] uppercase leading-[1.6] tracking-[0.22em] text-[#8a9b85]"
+              style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 300 }}
             >
-              Carmine <span className="mx-1 text-[#8f817a]">&</span>
+              Carmine Nacchia
               <br />
-              Annamaria
+              <span className="text-[#a7b5a2]">e</span>
+              <br />
+              Annamaria Stefanelli
             </p>
-            <p className="mt-5 text-[0.92rem] tracking-[0.04em] text-[#6f625c]">
-              vi invitano a celebrare il loro matrimonio
+            <p
+              className="mt-6 text-[0.95rem] tracking-[0.08em] text-[#8a9b85]"
+              style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 300 }}
+            >
+              Annunciano con gioia
+              <br />
+              il loro matrimonio
             </p>
           </div>
         </section>
@@ -71,37 +247,46 @@ export default function WeddingSite() {
               <div className="absolute inset-[12px] rounded-full border border-[#5f6d59] opacity-45" />
               <div className="absolute inset-0 rounded-full opacity-20 bg-[radial-gradient(circle_at_30%_28%,rgba(255,255,255,0.28),transparent_55%)]" />
               <span
-                className="relative text-[1.65rem] tracking-[0.12em] text-[#ece3db]"
-                style={{ fontFamily: 'Cormorant Garamond, serif', fontWeight: 600 }}
+                className="relative text-[#ece3db]"
+                style={{
+                  fontFamily: "'Allura', cursive",
+                  fontSize: '42px',
+                  lineHeight: 1,
+                }}
               >
-                <span
-                  style={{
-                    fontFamily: 'Great Vibes, cursive',
-                    fontSize: '32px',
-                    color: '#ece3db'
-                  }}
-                >
-                  C A
-                </span>
+                CA
               </span>
             </div>
           </div>
 
           <div className="absolute right-2 top-5 text-[70px] leading-none text-[#d9cdc6]">﹏</div>
 
-          <div className="mb-7 flex items-end justify-center gap-4 text-[#403632]">
+          <div
+            className="mb-7 flex items-end justify-center gap-4 text-[#8a9b85]"
+            style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 300 }}
+          >
             <div className="text-left">
               <p className="text-xs uppercase tracking-[0.22em]">Lunedì</p>
             </div>
-            <div className="border-x border-[#ccbfb7] px-5">
+            <div className="border-x border-[#b8c4b2] px-5">
               <div className="text-[3rem] leading-none">24</div>
               <div className="text-sm uppercase tracking-[0.18em]">Agosto</div>
             </div>
             <div className="pb-2 text-lg tracking-[0.1em]">2026</div>
           </div>
 
-          <p className="text-sm uppercase tracking-[0.25em] text-[#5d524d]">Ore 18:00</p>
-          <p className="mt-6 text-sm italic text-[#7b6d66]">presso</p>
+          <p
+            className="text-sm uppercase tracking-[0.25em] text-[#8a9b85]"
+            style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 300 }}
+          >
+            Ore 18:00
+          </p>
+          <p
+            className="mt-6 text-sm italic text-[#8a9b85]"
+            style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 300 }}
+          >
+            presso
+          </p>
 
           <div className="mt-4 space-y-5 text-left">
             <a
@@ -111,10 +296,10 @@ export default function WeddingSite() {
               className="flex items-center gap-4 rounded-2xl border border-[#e2d6cf] bg-white/75 p-3 shadow-[0_8px_24px_rgba(80,60,50,0.05)] transition hover:-translate-y-0.5"
             >
               <img src="/chiesa.jpg" alt="Chiesa" className="h-16 w-16 shrink-0 rounded-xl object-cover shadow-sm" />
-              <div>
-                <p className="text-[0.8rem] uppercase tracking-[0.18em] text-[#8f817a]">Cerimonia</p>
-                <p className="font-serif text-[1.2rem] leading-tight">Chiesa Corpo di Cristo</p>
-                <p className="mt-1 text-xs italic text-[#7f726a]">tocca per aprire la mappa</p>
+              <div style={{ fontFamily: "'Cormorant Garamond', serif" }}>
+                <p className="text-[0.8rem] uppercase tracking-[0.18em] text-[#8a9b85]">Cerimonia</p>
+                <p className="text-[1.2rem] leading-tight text-[#4d413c]" style={{ fontWeight: 400 }}>Chiesa Corpo di Cristo</p>
+                <p className="mt-1 text-xs italic text-[#8a9b85]">tocca per aprire la mappa</p>
               </div>
             </a>
 
@@ -125,10 +310,10 @@ export default function WeddingSite() {
               className="flex items-center gap-4 rounded-2xl border border-[#e2d6cf] bg-white/75 p-3 shadow-[0_8px_24px_rgba(80,60,50,0.05)] transition hover:-translate-y-0.5"
             >
               <img src="/locale.jpg" alt="Tenuta San Domenico" className="h-16 w-16 shrink-0 rounded-xl object-cover shadow-sm" />
-              <div>
-                <p className="text-[0.8rem] uppercase tracking-[0.18em] text-[#8f817a]">Ricevimento</p>
-                <p className="font-serif text-[1.2rem] leading-tight">Tenuta San Domenico</p>
-                <p className="mt-1 text-xs italic text-[#7f726a]">tocca per aprire la mappa</p>
+              <div style={{ fontFamily: "'Cormorant Garamond', serif" }}>
+                <p className="text-[0.8rem] uppercase tracking-[0.18em] text-[#8a9b85]">Ricevimento</p>
+                <p className="text-[1.2rem] leading-tight text-[#4d413c]" style={{ fontWeight: 400 }}>Tenuta San Domenico</p>
+                <p className="mt-1 text-xs italic text-[#8a9b85]">tocca per aprire la mappa</p>
               </div>
             </a>
           </div>
@@ -139,28 +324,25 @@ export default function WeddingSite() {
             <div className="h-full w-full rounded-r-full bg-[radial-gradient(circle_at_top_left,_#e7dbd4,_transparent_68%)]" />
           </div>
 
-          <h2 className="mb-8 text-center font-serif text-[1.55rem] uppercase tracking-[0.08em] text-[#5a4d47]">
+          <h2
+            className="mb-8 text-center text-[1.55rem] uppercase tracking-[0.22em] text-[#8a9b85]"
+            style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 300 }}
+          >
             Wedding Timeline
           </h2>
 
-          <div className="relative mx-auto max-w-[320px]">
-            <div className="absolute left-1/2 top-0 h-full w-px -translate-x-1/2 bg-[#bfb0a8]" />
+          <div className="relative mx-auto max-w-[280px]">
+            <div className="absolute left-[28px] top-0 h-full w-px bg-[#bfb0a8]" />
 
-            <div className="space-y-8">
+            <div className="space-y-7">
               {timeline.map((item, index) => (
-                <div key={index} className="relative grid grid-cols-[1fr_auto_1fr] items-center gap-4">
-                  <div className="text-right">
-                    <p className="text-[0.78rem] uppercase tracking-[0.08em] text-[#8a7d75]">{item.left}</p>
-                    <p className="mt-1 font-serif text-[1.05rem] leading-tight">{item.leftTitle}</p>
-                  </div>
-
-                  <div className="relative z-10 flex h-8 w-8 items-center justify-center rounded-full border border-[#cbbdb5] bg-[#f7f0ec] text-[#8c7d75]">
+                <div key={index} className="relative flex items-center gap-5">
+                  <div className="relative z-10 flex h-[56px] w-[56px] shrink-0 items-center justify-center rounded-full border border-[#cbbdb5] bg-white">
                     <span className="h-2.5 w-2.5 rounded-full bg-[#a9968d]" />
                   </div>
-
-                  <div className="text-left">
-                    <p className="text-[0.78rem] uppercase tracking-[0.08em] text-[#8a7d75]">{item.right}</p>
-                    <p className="mt-1 font-serif text-[1.05rem] leading-tight">{item.rightTitle}</p>
+                  <div style={{ fontFamily: "'Cormorant Garamond', serif" }}>
+                    <p className="text-[0.72rem] uppercase tracking-[0.18em] text-[#8a9b85]">{item.time}</p>
+                    <p className="mt-0.5 text-[1.15rem] leading-tight text-[#4d413c]" style={{ fontWeight: 400 }}>{item.title}</p>
                   </div>
                 </div>
               ))}
@@ -169,9 +351,17 @@ export default function WeddingSite() {
         </section>
 
         <section className="px-7 pb-10">
-          <div className="rounded-[1.6rem] border border-[#e2d6cf] bg-white/85 p-6 text-center shadow-[0_12px_30px_rgba(80,60,50,0.05)]">
-            <p className="font-serif text-[1.45rem] text-[#4d413c]">Lista nozze</p>
-            <p className="mx-auto mt-3 max-w-[280px] text-sm leading-6 text-[#6f625c]">
+          <div
+            className="rounded-[1.6rem] border border-[#e2d6cf] bg-white/85 p-6 text-center shadow-[0_12px_30px_rgba(80,60,50,0.05)]"
+            style={{ fontFamily: "'Cormorant Garamond', serif" }}
+          >
+            <p
+              className="text-[1.45rem] uppercase tracking-[0.18em] text-[#8a9b85]"
+              style={{ fontWeight: 300 }}
+            >
+              Lista nozze
+            </p>
+            <p className="mx-auto mt-3 max-w-[280px] text-[0.95rem] leading-6 text-[#6f625c]">
               La vostra presenza sarà per noi il dono più bello. Qui potremo aggiungere più avanti il testo per il regalo,
               l’eventuale IBAN oppure il link alla lista nozze.
             </p>
@@ -181,16 +371,28 @@ export default function WeddingSite() {
           </div>
         </section>
 
-        <section className="px-7 pb-14 text-center">
-          <p className="mx-auto max-w-[290px] text-sm leading-6 text-[#6f625c]">
+        <section
+          className="px-7 pb-14 text-center"
+          style={{ fontFamily: "'Cormorant Garamond', serif" }}
+        >
+          <p className="mx-auto max-w-[290px] text-[0.95rem] leading-6 text-[#6f625c]">
             Vi chiediamo di confermare la vostra presenza appena possibile.
           </p>
-          <button className="mt-5 rounded-full bg-[#5f7257] px-8 py-3 text-sm uppercase tracking-[0.14em] text-white shadow-[0_10px_24px_rgba(95,114,87,0.25)] transition hover:opacity-90">
+          <button
+            className="mt-5 rounded-full bg-[#8a9b85] px-8 py-3 text-sm uppercase tracking-[0.22em] text-white shadow-[0_10px_24px_rgba(138,155,133,0.30)] transition hover:opacity-90"
+            style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 400 }}
+          >
             Conferma presenza
           </button>
-          <p className="mt-8 text-xs uppercase tracking-[0.28em] text-[#a28f85]">invito digitale</p>
+          <p
+            className="mt-8 text-xs uppercase tracking-[0.32em] text-[#a7b5a2]"
+            style={{ fontWeight: 300 }}
+          >
+            invito digitale
+          </p>
         </section>
       </div>
     </div>
+    </>
   );
 }
