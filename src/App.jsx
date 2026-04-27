@@ -162,29 +162,13 @@ export default function WeddingSite() {
             />
           </div>
 
-          <div className="relative z-10 mt-10">
-            <div className="mx-auto w-full max-w-[280px] text-[#8b8079]">
-              <svg viewBox="0 0 300 180" className="w-full">
-                <g fill="none" stroke="currentColor" strokeWidth="1.2">
-                  <path d="M42 138 L42 62 L74 62 L74 138" />
-                  <path d="M74 138 L74 36 L98 36 L98 138" />
-                  <path d="M98 138 L258 138" />
-                  <path d="M110 138 L110 90 L150 52 L192 90 L192 138" />
-                  <path d="M104 90 L150 46 L198 90" />
-                  <path d="M122 138 L122 100 L150 74 L178 100 L178 138" />
-                  <path d="M120 100 L150 72 L180 100" />
-                  <circle cx="150" cy="94" r="14" />
-                  <circle cx="150" cy="94" r="6" />
-                  <circle cx="150" cy="64" r="7" />
-                  <path d="M56 72 L56 126" />
-                  <path d="M62 72 L62 126" />
-                  <path d="M68 72 L68 126" />
-                  <path d="M86 50 L86 126" />
-                  <path d="M92 50 L92 126" />
-                  <path d="M134 138 L134 110 L150 96 L166 110 L166 138" />
-                </g>
-              </svg>
-            </div>
+          <div className="relative z-10 mt-10 -mx-7">
+            <img
+              src="/tenuta.jpeg"
+              alt="Tenuta"
+              className="block w-full select-none"
+              draggable={false}
+            />
           </div>
 
           <div className="relative z-10 mt-6">
@@ -423,7 +407,7 @@ export default function WeddingSite() {
             Pernottamento
           </p>
 
-          <div className="text-left">
+          <div className="space-y-5 text-left">
             <a
               href="https://maps.app.goo.gl/K1AmzkQefskw3FL56"
               target="_blank"
@@ -447,6 +431,33 @@ export default function WeddingSite() {
               <div style={{ fontFamily: "'Cormorant Garamond', serif" }}>
                 <p className="text-[0.8rem] uppercase tracking-[0.18em] text-[#8a9b85]">Hotel</p>
                 <p className="text-[1.2rem] leading-tight text-[#4d413c]" style={{ fontWeight: 400 }}>Tenuta Re Ferdinando</p>
+                <p className="mt-1 text-xs italic text-[#8a9b85]">tocca per aprire la mappa</p>
+              </div>
+            </a>
+
+            <a
+              href="https://maps.app.goo.gl/u9s439PR6Qa8VVBT7"
+              target="_blank"
+              rel="noreferrer"
+              className="flex items-center gap-4 rounded-2xl border border-[#e2d6cf] bg-white/75 p-3 shadow-[0_8px_24px_rgba(80,60,50,0.05)] transition hover:-translate-y-0.5"
+            >
+              <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-xl bg-[#f3ece6] text-[#8a9b85] shadow-sm">
+                <svg viewBox="0 0 64 64" className="h-9 w-9" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  {/* testata del letto */}
+                  <path d="M8 44 V24" />
+                  {/* piedi del letto */}
+                  <path d="M56 44 V32" />
+                  {/* base / materasso */}
+                  <path d="M8 38 H56" />
+                  {/* coperta */}
+                  <path d="M8 44 H56 V50 H8 Z" />
+                  {/* cuscino */}
+                  <path d="M14 32 H26 V38 H14 Z" />
+                </svg>
+              </div>
+              <div style={{ fontFamily: "'Cormorant Garamond', serif" }}>
+                <p className="text-[0.8rem] uppercase tracking-[0.18em] text-[#8a9b85]">Hotel</p>
+                <p className="text-[1.2rem] leading-tight text-[#4d413c]" style={{ fontWeight: 400 }}>Medea Resort Hotel &amp; Ricevimenti</p>
                 <p className="mt-1 text-xs italic text-[#8a9b85]">tocca per aprire la mappa</p>
               </div>
             </a>
