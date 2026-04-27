@@ -424,7 +424,7 @@ export default function WeddingSite() {
             className="mb-5 text-sm italic text-[#8a9b85]"
             style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 300 }}
           >
-            dove dormire
+            Pernottamento
           </p>
 
           <div className="text-left">
@@ -449,7 +449,7 @@ export default function WeddingSite() {
                 </svg>
               </div>
               <div style={{ fontFamily: "'Cormorant Garamond', serif" }}>
-                <p className="text-[0.8rem] uppercase tracking-[0.18em] text-[#8a9b85]">Pernottamento</p>
+                <p className="text-[0.8rem] uppercase tracking-[0.18em] text-[#8a9b85]">Hotel</p>
                 <p className="text-[1.2rem] leading-tight text-[#4d413c]" style={{ fontWeight: 400 }}>Tenuta Re Ferdinando</p>
                 <p className="mt-1 text-xs italic text-[#8a9b85]">tocca per aprire la mappa</p>
               </div>
