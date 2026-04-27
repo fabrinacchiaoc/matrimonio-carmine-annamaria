@@ -191,14 +191,12 @@ export default function WeddingSite() {
 
           <div className="relative z-10 mt-6">
             <p
-              className="text-[1.55rem] uppercase leading-[1.6] tracking-[0.22em] text-[#8a9b85]"
+              className="text-[1.35rem] uppercase leading-[1.7] tracking-[0.22em] text-[#8a9b85]"
               style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 300 }}
             >
-              Carmine Nacchia
-              <br />
-              <span className="text-[#a7b5a2]">e</span>
-              <br />
-              Annamaria Stefanelli
+              <span className="block whitespace-nowrap">CARMINE NACCHIA</span>
+              <span className="block text-[#a7b5a2]">E</span>
+              <span className="block whitespace-nowrap">ANNAMARIA STEFANELLI</span>
             </p>
             <p
               className="mt-6 text-[0.95rem] tracking-[0.08em] text-[#8a9b85]"
@@ -230,7 +228,7 @@ export default function WeddingSite() {
             className="text-sm uppercase tracking-[0.25em] text-[#8a9b85]"
             style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 300 }}
           >
-            Ore 18:00
+            Ore 15:30
           </p>
           <p
             className="mt-6 text-sm italic text-[#8a9b85]"
