@@ -68,13 +68,13 @@ function EnvelopeIntro({ opening, onTap }) {
           </svg>
         </div>
 
-        {/* Ceralacca (wax seal) con "CA" in script */}
+        {/* Ceralacca (wax seal) con monogramma */}
         <button
           type="button"
           onClick={onTap}
           aria-label="Apri l'invito"
           disabled={opening}
-          className={`absolute left-1/2 top-1/2 flex h-[72px] w-[72px] items-center justify-center rounded-full focus:outline-none ${
+          className={`absolute left-1/2 top-1/2 flex h-[72px] w-[72px] items-center justify-center overflow-hidden rounded-full focus:outline-none ${
             opening ? 'envelope-seal-break' : 'envelope-seal-idle'
           }`}
           style={{
@@ -85,18 +85,16 @@ function EnvelopeIntro({ opening, onTap }) {
             border: '1px solid rgba(77,92,72,0.55)',
           }}
         >
-          <span
+          <img
+            src="/monogramma.png"
+            alt="Monogramma"
+            draggable={false}
+            className="h-[54px] w-[54px] select-none object-contain"
             style={{
-              fontFamily: "'Allura', cursive",
-              fontSize: '2.3rem',
-              lineHeight: 1,
-              color: '#3f4c3a',
-              textShadow: '0 1px 0 rgba(255,255,255,0.18)',
-              letterSpacing: '-0.04em',
+              filter:
+                'brightness(0) saturate(100%) invert(22%) sepia(14%) saturate(700%) hue-rotate(60deg) brightness(95%) contrast(90%) drop-shadow(0 1px 0 rgba(255,255,255,0.18))',
             }}
-          >
-            CA
-          </span>
+          />
         </button>
       </div>
 
