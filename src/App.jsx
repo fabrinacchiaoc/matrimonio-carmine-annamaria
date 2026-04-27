@@ -419,6 +419,51 @@ export default function WeddingSite() {
           </div>
         </section>
 
+        <section className="relative px-7 pb-12 text-center">
+          <p
+            className="mb-5 text-sm italic text-[#8a9b85]"
+            style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 300 }}
+          >
+            dove dormire
+          </p>
+
+          <div className="text-left">
+            <a
+              href="https://maps.app.goo.gl/K1AmzkQefskw3FL56"
+              target="_blank"
+              rel="noreferrer"
+              className="flex items-center gap-4 rounded-2xl border border-[#e2d6cf] bg-white/75 p-3 shadow-[0_8px_24px_rgba(80,60,50,0.05)] transition hover:-translate-y-0.5"
+            >
+              <div className="flex h-16 w-16 shrink-0 items-center justify-center rounded-xl bg-[#f3ece6] text-[#8a9b85] shadow-sm">
+                <svg viewBox="0 0 64 64" className="h-9 w-9" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  {/* testata del letto */}
+                  <path d="M8 44 V24" />
+                  {/* piedi del letto */}
+                  <path d="M56 44 V32" />
+                  {/* base / materasso */}
+                  <path d="M8 38 H56" />
+                  {/* coperta */}
+                  <path d="M8 44 H56 V50 H8 Z" />
+                  {/* cuscino */}
+                  <path d="M14 32 H26 V38 H14 Z" />
+                </svg>
+              </div>
+              <div style={{ fontFamily: "'Cormorant Garamond', serif" }}>
+                <p className="text-[0.8rem] uppercase tracking-[0.18em] text-[#8a9b85]">Pernottamento</p>
+                <p className="text-[1.2rem] leading-tight text-[#4d413c]" style={{ fontWeight: 400 }}>Tenuta Re Ferdinando</p>
+                <p className="mt-1 text-xs italic text-[#8a9b85]">tocca per aprire la mappa</p>
+              </div>
+            </a>
+          </div>
+
+          <p
+            className="mt-5 text-xs italic text-[#8a9b85]"
+            style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 300 }}
+          >
+            per maggiori info contattare la sposa
+          </p>
+        </section>
+
       </div>
     </div>
     </>
