@@ -126,6 +126,17 @@ export default function WeddingSite() {
   };
 
   const timeline = [
+    { type: 'day', label: 'Domenica 23 Agosto' },
+    {
+      time: '21:00',
+      title: 'Serenata',
+      map: {
+        href: 'https://maps.app.goo.gl/nXw9XugM59bAAoru6',
+        icon: 'house',
+        subtitle: 'Casa della sposa',
+      },
+    },
+    { type: 'day', label: 'Lunedì 24 Agosto' },
     {
       time: '15:30',
       title: 'Cerimonia',
@@ -242,38 +253,116 @@ export default function WeddingSite() {
             <div className="absolute left-[28px] top-0 h-full w-px bg-[#8a9b85]" />
 
             <div className="space-y-7">
-              {timeline.map((item, index) => (
-                <div key={index} className="relative flex items-start gap-5">
-                  <div className="relative z-10 mt-1 flex h-[56px] w-[56px] shrink-0 items-center justify-center rounded-full border border-[#8a9b85] bg-white">
-                    <span className="h-2.5 w-2.5 rounded-full bg-[#8a9b85]" />
-                  </div>
-                  <div className="flex-1 pt-2" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
-                    <p className="text-[0.72rem] uppercase tracking-[0.18em] text-[#8a9b85]">{item.time}</p>
-                    <p className="mt-0.5 text-[1.15rem] leading-tight text-[#4d413c]" style={{ fontWeight: 400 }}>{item.title}</p>
-                    {item.map && (
-                      <a
-                        href={item.map.href}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="mt-2 flex items-center gap-3 rounded-xl border border-[#e2d6cf] bg-white/80 p-2 shadow-[0_4px_14px_rgba(80,60,50,0.05)] transition hover:-translate-y-0.5"
+              {timeline.map((item, index) => {
+                if (item.type === 'day') {
+                  return (
+                    <div key={index} className="relative flex items-center gap-3 pl-[14px]">
+                      <span className="h-px flex-1 bg-[#cdd6c8]" />
+                      <p
+                        className="text-[0.7rem] uppercase tracking-[0.28em] text-[#8a9b85]"
+                        style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 300 }}
                       >
-                        <img
-                          src={item.map.img}
-                          alt={item.map.alt}
-                          className="h-12 w-12 shrink-0 rounded-lg object-cover"
-                        />
-                        <div className="min-w-0">
-                          <p className="text-[0.95rem] leading-tight text-[#4d413c]" style={{ fontWeight: 400 }}>
-                            {item.map.subtitle}
-                          </p>
-                          <p className="mt-0.5 text-[0.65rem] italic text-[#8a9b85]">tocca per aprire la mappa</p>
-                        </div>
-                      </a>
-                    )}
+                        {item.label}
+                      </p>
+                      <span className="h-px flex-1 bg-[#cdd6c8]" />
+                    </div>
+                  );
+                }
+                return (
+                  <div key={index} className="relative flex items-start gap-5">
+                    <div className="relative z-10 mt-1 flex h-[56px] w-[56px] shrink-0 items-center justify-center rounded-full border border-[#8a9b85] bg-white">
+                      <span className="h-2.5 w-2.5 rounded-full bg-[#8a9b85]" />
+                    </div>
+                    <div className="flex-1 pt-2" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
+                      <p className="text-[0.72rem] uppercase tracking-[0.18em] text-[#8a9b85]">{item.time}</p>
+                      <p className="mt-0.5 text-[1.15rem] leading-tight text-[#4d413c]" style={{ fontWeight: 400 }}>{item.title}</p>
+                      {item.map && (
+                        <a
+                          href={item.map.href}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="mt-2 flex items-center gap-3 rounded-xl border border-[#e2d6cf] bg-white/80 p-2 shadow-[0_4px_14px_rgba(80,60,50,0.05)] transition hover:-translate-y-0.5"
+                        >
+                          {item.map.icon === 'house' ? (
+                            <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-lg bg-[#f3ece6] text-[#8a9b85]">
+                              <svg viewBox="0 0 64 64" className="h-7 w-7" fill="none" stroke="currentColor" strokeWidth="2.4" strokeLinecap="round" strokeLinejoin="round">
+                                {/* tetto */}
+                                <path d="M8 32 L32 12 L56 32" />
+                                {/* comignolo */}
+                                <path d="M46 19 V25" />
+                                {/* corpo della casa */}
+                                <path d="M14 30 V54 H50 V30" />
+                                {/* porta */}
+                                <path d="M28 54 V40 H36 V54" />
+                                {/* finestra */}
+                                <rect x="19" y="36" width="6" height="6" />
+                                {/* nota musicale */}
+                                <circle cx="44" cy="45" r="1.6" fill="currentColor" stroke="none" />
+                                <path d="M45.6 45 V38 L49 37" />
+                              </svg>
+                            </div>
+                          ) : (
+                            <img
+                              src={item.map.img}
+                              alt={item.map.alt}
+                              className="h-12 w-12 shrink-0 rounded-lg object-cover"
+                            />
+                          )}
+                          <div className="min-w-0">
+                            <p className="text-[0.95rem] leading-tight text-[#4d413c]" style={{ fontWeight: 400 }}>
+                              {item.map.subtitle}
+                            </p>
+                            <p className="mt-0.5 text-[0.65rem] italic text-[#8a9b85]">tocca per aprire la mappa</p>
+                          </div>
+                        </a>
+                      )}
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
+          </div>
+        </section>
+
+        <section className="px-7 pb-10">
+          <div
+            className="rounded-[1.6rem] border border-[#e2d6cf] bg-white/85 p-6 text-center shadow-[0_12px_30px_rgba(80,60,50,0.05)]"
+            style={{ fontFamily: "'Cormorant Garamond', serif" }}
+          >
+            <p
+              className="text-[1.45rem] uppercase tracking-[0.18em] text-[#8a9b85]"
+              style={{ fontWeight: 300 }}
+            >
+              Conferma la tua presenza
+            </p>
+            <p className="mx-auto mt-4 max-w-[300px] text-[0.98rem] leading-7 text-[#6f625c]">
+              La vostra presenza al nostro matrimonio sarà il dono più bello.
+              Vi chiediamo gentilmente di confermare la partecipazione tramite
+              il modulo qui sotto.
+            </p>
+
+            <a
+              href="https://forms.gle/t1xSAtQAUEjsHP7E8"
+              target="_blank"
+              rel="noreferrer"
+              className="mt-6 inline-flex items-center gap-3 rounded-full border border-[#8a9b85] bg-[#8a9b85] px-6 py-3 text-[0.78rem] uppercase tracking-[0.28em] text-white shadow-[0_8px_22px_rgba(95,120,85,0.25)] transition hover:-translate-y-0.5 hover:bg-[#7c8d77]"
+            >
+              <svg
+                viewBox="0 0 24 24"
+                className="h-4 w-4"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <path d="M3 7l9 6 9-6" />
+                <rect x="3" y="5" width="18" height="14" rx="2" />
+              </svg>
+              <span style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 400 }}>
+                Compila il modulo
+              </span>
+            </a>
           </div>
         </section>
 
