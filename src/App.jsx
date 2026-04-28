@@ -126,9 +126,27 @@ export default function WeddingSite() {
   };
 
   const timeline = [
-    { time: '15:30', title: 'Cerimonia' },
+    {
+      time: '15:30',
+      title: 'Cerimonia',
+      map: {
+        href: 'https://maps.app.goo.gl/H3sEpER35S64XD9y6',
+        img: '/chiesa.jpg',
+        alt: 'Chiesa',
+        subtitle: 'Chiesa Corpo di Cristo',
+      },
+    },
     { time: '17:00', title: 'Fine rito' },
-    { time: '17:30', title: 'Trasferimento in location' },
+    {
+      time: '17:30',
+      title: 'Trasferimento in location',
+      map: {
+        href: 'https://maps.app.goo.gl/dJaZpEufGdopggfv5',
+        img: '/locale.jpg',
+        alt: 'Tenuta San Domenico',
+        subtitle: 'Tenuta San Domenico',
+      },
+    },
     { time: '18:00', title: 'Aperitivo' },
     { time: '20:00', title: 'Inizio ricevimento' },
     { time: '00:00', title: 'Taglio torta' },
@@ -206,48 +224,6 @@ export default function WeddingSite() {
             <div className="pb-2 text-lg tracking-[0.1em]">2026</div>
           </div>
 
-          <p
-            className="text-sm uppercase tracking-[0.25em] text-[#8a9b85]"
-            style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 300 }}
-          >
-            Ore 15:30
-          </p>
-          <p
-            className="mt-6 text-sm italic text-[#8a9b85]"
-            style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 300 }}
-          >
-            presso
-          </p>
-
-          <div className="mt-4 space-y-5 text-left">
-            <a
-              href="https://maps.app.goo.gl/H3sEpER35S64XD9y6"
-              target="_blank"
-              rel="noreferrer"
-              className="flex items-center gap-4 rounded-2xl border border-[#e2d6cf] bg-white/75 p-3 shadow-[0_8px_24px_rgba(80,60,50,0.05)] transition hover:-translate-y-0.5"
-            >
-              <img src="/chiesa.jpg" alt="Chiesa" className="h-16 w-16 shrink-0 rounded-xl object-cover shadow-sm" />
-              <div style={{ fontFamily: "'Cormorant Garamond', serif" }}>
-                <p className="text-[0.8rem] uppercase tracking-[0.18em] text-[#8a9b85]">Cerimonia</p>
-                <p className="text-[1.2rem] leading-tight text-[#4d413c]" style={{ fontWeight: 400 }}>Chiesa Corpo di Cristo</p>
-                <p className="mt-1 text-xs italic text-[#8a9b85]">tocca per aprire la mappa</p>
-              </div>
-            </a>
-
-            <a
-              href="https://maps.app.goo.gl/dJaZpEufGdopggfv5"
-              target="_blank"
-              rel="noreferrer"
-              className="flex items-center gap-4 rounded-2xl border border-[#e2d6cf] bg-white/75 p-3 shadow-[0_8px_24px_rgba(80,60,50,0.05)] transition hover:-translate-y-0.5"
-            >
-              <img src="/locale.jpg" alt="Tenuta San Domenico" className="h-16 w-16 shrink-0 rounded-xl object-cover shadow-sm" />
-              <div style={{ fontFamily: "'Cormorant Garamond', serif" }}>
-                <p className="text-[0.8rem] uppercase tracking-[0.18em] text-[#8a9b85]">Ricevimento</p>
-                <p className="text-[1.2rem] leading-tight text-[#4d413c]" style={{ fontWeight: 400 }}>Tenuta San Domenico</p>
-                <p className="mt-1 text-xs italic text-[#8a9b85]">tocca per aprire la mappa</p>
-              </div>
-            </a>
-          </div>
         </section>
 
         <section className="relative overflow-hidden px-7 pb-10 pt-3">
@@ -267,13 +243,33 @@ export default function WeddingSite() {
 
             <div className="space-y-7">
               {timeline.map((item, index) => (
-                <div key={index} className="relative flex items-center gap-5">
-                  <div className="relative z-10 flex h-[56px] w-[56px] shrink-0 items-center justify-center rounded-full border border-[#8a9b85] bg-white">
+                <div key={index} className="relative flex items-start gap-5">
+                  <div className="relative z-10 mt-1 flex h-[56px] w-[56px] shrink-0 items-center justify-center rounded-full border border-[#8a9b85] bg-white">
                     <span className="h-2.5 w-2.5 rounded-full bg-[#8a9b85]" />
                   </div>
-                  <div style={{ fontFamily: "'Cormorant Garamond', serif" }}>
+                  <div className="flex-1 pt-2" style={{ fontFamily: "'Cormorant Garamond', serif" }}>
                     <p className="text-[0.72rem] uppercase tracking-[0.18em] text-[#8a9b85]">{item.time}</p>
                     <p className="mt-0.5 text-[1.15rem] leading-tight text-[#4d413c]" style={{ fontWeight: 400 }}>{item.title}</p>
+                    {item.map && (
+                      <a
+                        href={item.map.href}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="mt-2 flex items-center gap-3 rounded-xl border border-[#e2d6cf] bg-white/80 p-2 shadow-[0_4px_14px_rgba(80,60,50,0.05)] transition hover:-translate-y-0.5"
+                      >
+                        <img
+                          src={item.map.img}
+                          alt={item.map.alt}
+                          className="h-12 w-12 shrink-0 rounded-lg object-cover"
+                        />
+                        <div className="min-w-0">
+                          <p className="text-[0.95rem] leading-tight text-[#4d413c]" style={{ fontWeight: 400 }}>
+                            {item.map.subtitle}
+                          </p>
+                          <p className="mt-0.5 text-[0.65rem] italic text-[#8a9b85]">tocca per aprire la mappa</p>
+                        </div>
+                      </a>
+                    )}
                   </div>
                 </div>
               ))}
