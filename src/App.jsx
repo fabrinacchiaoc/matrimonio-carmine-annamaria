@@ -556,6 +556,22 @@ export default function WeddingSite() {
           </div>
         </section>
 
+        <footer className="px-7 pb-8 pt-2 text-center">
+          <div className="mx-auto mb-3 h-px w-16 bg-[#cdd6c8]" />
+          <p
+            className="text-[0.62rem] uppercase tracking-[0.32em] text-[#b8a99c]"
+            style={{ fontFamily: "'Cormorant Garamond', serif", fontWeight: 300 }}
+          >
+            sito realizzato da
+          </p>
+          <p
+            className="mt-1 text-[1.5rem] leading-none text-[#8a9b85]"
+            style={{ fontFamily: "'Allura', cursive", letterSpacing: '0.01em' }}
+          >
+            Fabrizio Nacchia
+          </p>
+        </footer>
+
       </div>
     </div>
     </>
